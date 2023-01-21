@@ -1,0 +1,247 @@
+<html>
+  <head>
+    <title>Feiertage in Deutschland</title>
+   <style>
+   nav {
+  background-color: #333;
+  font-family: Arial, sans-serif;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  flex: 1;
+}
+
+nav a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background-color: #111;
+}
+
+#left{
+    float:left;
+    width: 15%;
+    font-weight: 800;
+}
+
+#right{
+    float:left;
+    width: 25%;
+    font-weight: 600;
+}
+
+body {
+  background-color:rgb(148 163 184);
+}
+   </style>
+  </head>
+  <body>
+  <nav>
+  <ul>
+    <li><a href="">Home</a></li>
+    <li><a href="">About</a></li>
+    <li><a href="">Services</a></li>
+    <li><a href="">Contact</a></li>
+  </ul>
+  </nav>
+
+    <h1>Feiertage in Deutschland</h1>
+    <form>
+      Bitte geben Sie das Jahr ein:
+      <input type="number" id="year" value="">
+      <select id="bundesland">
+        <option value="Baden-Württemberg">Baden-Württemberg</option>
+        <option value="Bayern">Bayern</option>
+        <option value="Berlin">Berlin</option>
+        <option value="Brandenburg">Brandenburg</option>
+        <option value="Bremen">Bremen</option>
+        <option value="Hamburg">Hamburg</option>
+        <option value="Hessen">Hessen</option>
+        <option value="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern</option>
+        <option value="Niedersachsen">Niedersachsen</option>
+        <option value="Nordrhein-Westfalen">Nordrhein-Westfalen</option>
+        <option value="Rheinland-Pfalz">Rheinland-Pfalz</option>
+        <option value="Saarland">Saarland</option>
+        <option value="Sachsen">Sachsen</option>
+        <option value="Sachsen-Anhalt">Sachsen-Anhalt</option>
+        <option value="Schleswig-Holstein">Schleswig-Holstein</option>
+        <option value="Thüringen">Thüringen</option>
+      </select>
+
+      <button type="button" onclick="calculateHolidays();changeWappen();">Berechne Feiertage</button>
+    </form>
+    <br>
+    <image id="Wappen" src=""></image>
+    <p id="result"></p>
+    
+
+    <script>
+      window.onload = function() {
+        // Set the current year as default value
+        document.getElementById('year').value = new Date().getFullYear();
+      };
+
+      function changeWappen() {
+        const sources = {
+          'Baden-Württemberg': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Baden-W%C3%BCrttemberg.svg/140px-Flag_of_Baden-W%C3%BCrttemberg.svg.png',
+          'Bayern': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Flag_of_Bavaria_%28striped%29.svg/140px-Flag_of_Bavaria_%28striped%29.svg.png',
+          'Berlin': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Flag_of_Berlin.svg/140px-Flag_of_Berlin.svg.png',
+          'Brandenburg': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Flag_of_Brandenburg.svg/140px-Flag_of_Brandenburg.svg.png',
+          'Bremen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Flag_of_Bremen.svg/140px-Flag_of_Bremen.svg.png',
+          'Hamburg': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Flag_of_Hamburg.svg/140px-Flag_of_Hamburg.svg.png',
+          'Hessen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Flag_of_Hesse.svg/140px-Flag_of_Hesse.svg.png',
+          'Mecklenburg-Vorpommern': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Mecklenburg-Western_Pomerania.svg/140px-Flag_of_Mecklenburg-Western_Pomerania.svg.png',
+          'Niedersachsen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Flag_of_Lower_Saxony.svg/140px-Flag_of_Lower_Saxony.svg.png',
+          'Nordrhein-Westfalen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_North_Rhine-Westphalia.svg/140px-Flag_of_North_Rhine-Westphalia.svg.png',
+          'Rheinland-Pfalz': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Flag_of_Rhineland-Palatinate.svg/140px-Flag_of_Rhineland-Palatinate.svg.png',
+          'Saarland': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Flag_of_Saarland.svg/140px-Flag_of_Saarland.svg.png',
+          'Sachsen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Saxony.svg/140px-Flag_of_Saxony.svg.png',
+          'Sachsen-Anhalt': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Flag_of_Saxony-Anhalt_%28state%29.svg/140px-Flag_of_Saxony-Anhalt_%28state%29.svg.png',
+          'Schleswig-Holstein': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Schleswig-Holstein.svg/140px-Flag_of_Schleswig-Holstein.svg.png',
+          'Thüringen': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Flag_of_Thuringia.svg/140px-Flag_of_Thuringia.svg.png'
+        }
+
+        const bundesland = document.getElementById('bundesland').value;
+        const wappen = document.getElementById('Wappen');
+        wappen.src = sources[bundesland];
+      }
+
+      function calculateHolidays() {
+        // Holidays in Germany
+        const holidays = [
+          {name: 'Neujahr', date: '01-01'}, 
+          {name: 'Heilige 3 Könige', date: '01-06'}, 
+          {name: 'Frauentag', date: '03-08'}, 
+          {name: 'Karfreitag', date: ''}, // 3
+          {name: 'Ostersonntag', date: ''}, // 4
+          {name: 'Ostermontag', date: ''}, // 5
+          {name: 'Tag der Arbeit', date: '05-01'}, 
+          {name: 'Christi Himmelfahrt', date: ''}, // 7
+          {name: 'Pfingstsonntag', date: ''}, // 8
+          {name: 'Pfingstmontag', date: ''}, // 9
+          {name: 'Fronleichnam', date: ''}, // 10
+          {name: 'Augsburger Friedensfest', date: '08-08', bem: ' - nur in Augsburg.'},
+          {name: 'Mariä Himmelfahrt', date: '08-15'}, 
+          {name: 'Mariä Himmelfahrt ', date: '08-15', bem: ' - nur in überwiegend katholischen Gemeinden.'},
+          {name: 'Weltkindertag', date: '09-20'},
+          {name: 'Tag der Deutschen Einheit', date: '10-03'}, 
+          {name: 'Reformationstag', date: '10-31'}, 
+          {name: 'Allerheiligen', date: '11-01'}, 
+          {name: 'Buß- und Bettag', date: ''}, // 18
+          {name: '1. Weihnachtstag', date: '12-25'}, 
+          {name: '2. Weihnachtstag', date: '12-26'} 
+        ];
+
+        // Get the year from the input field
+        const year = document.getElementById('year').value;
+        const bundesland = document.getElementById('bundesland').value;
+
+        const matrix = [
+          {Bundesland: 'Baden-Württemberg', Feiertage: ['Heilige 3 Könige', 'Fronleichnam', 'Allerheiligen']},
+          {Bundesland: 'Bayern', Feiertage: ['Heilige 3 Könige', 'Fronleichnam', 'Mariä Himmelfahrt ','Allerheiligen','Augsburger Friedensfest']},
+          {Bundesland: 'Berlin', Feiertage: ['Frauentag']},
+          {Bundesland: 'Brandenburg', Feiertage: ['Reformationstag', 'Ostersonntag', 'Pfingstsonntag']},
+          {Bundesland: 'Bremen', Feiertage: ['Reformationstag']},
+          {Bundesland: 'Hamburg', Feiertage: ['Reformationstag']},
+          {Bundesland: 'Hessen', Feiertage: ['Fronleichnam','Ostersonntag']},
+          {Bundesland: 'Mecklenburg-Vorpommern', Feiertage: ['Reformationstag','Frauentag']},
+          {Bundesland: 'Niedersachsen', Feiertage: ['Reformationstag']},
+          {Bundesland: 'Nordrhein-Westfalen', Feiertage: ['Fronleichnam','Allerheiligen']},
+          {Bundesland: 'Rheinland-Pfalz', Feiertage: ['Fronleichnam','Allerheiligen']},
+          {Bundesland: 'Saarland', Feiertage: ['Fronleichnam','Mariä Himmelfahrt','Allerheiligen']},
+          {Bundesland: 'Sachsen', Feiertage: ['Reformationstag','Buß- und Bettag']},
+          {Bundesland: 'Sachsen-Anhalt', Feiertage: ['Heilige 3 Könige','Reformationstag']},
+          {Bundesland: 'Schleswig-Holstein', Feiertage: ['Reformationstag']},
+          {Bundesland: 'Thüringen', Feiertage: ['Reformationstag','Weltkindertag']},
+          {Bundesland: 'Bundesweit', Feiertage: ['Neujahr', 'Karfreitag','Ostermontag','Tag der Arbeit', 'Christi Himmelfahrt', 'Pfingstmontag','Tag der Deutschen Einheit','1. Weihnachtstag', '2. Weihnachtstag']}
+
+        ]
+
+        // Calculate the dates of the holidays that are based on Easter
+        const easterDate = getEasterDate(year);
+        holidays[3].date = getDateBeforeDays(easterDate, 2); // Karfreitag
+        holidays[4].date = easterDate; // Ostersonntag
+        holidays[5].date = getDateAfterDays(easterDate, 1); // Ostermontag
+        holidays[7].date = getDateAfterDays(easterDate, 39); // Christi Himmelfahrt
+        holidays[8].date = getDateAfterDays(easterDate, 49); // Pfingstsonntag
+        holidays[9].date = getDateAfterDays(easterDate, 50); // Pfingstmontag
+        holidays[10].date = getDateAfterDays(easterDate, 60); // Fronleichnam
+        holidays[18].date = getBusUndBettag(year); // Buß- und Bettag
+
+        // Display the holidays in the result element
+        let resultText = '';
+        for (const holiday of holidays) {
+          if (matrix.find(x => x.Bundesland === bundesland).Feiertage.includes(holiday.name) || matrix.find(x => x.Bundesland === 'Bundesweit').Feiertage.includes(holiday.name)) {
+            resultText += `<div id="left">${holiday.name}</div><div id="right">${convertDate(holiday.date)}.${year} ${holiday.bem ? holiday.bem : ""}</div><br>`;
+          }
+        }
+        // insert tab in html code
+
+        document.getElementById('result').innerHTML = resultText;
+      }
+
+      //convert english date to german date
+      function convertDate(date) {
+        const dateParts = date.split('-');
+        return `${padString(dateParts[1])}.${padString(dateParts[0])}`;
+      }
+
+      //padding string with leading zero when string element less then 10
+      function padString(string) {
+        return string.length < 2 ? '0' + string : string;
+      }
+
+      // Calculates the date of Easter for a given year
+      function getEasterDate(year) {
+      const a = year % 19;
+      const b = Math.floor(year / 100);
+      const c = year % 100;
+      const d = Math.floor(b / 4);
+      const e = b % 4;
+      const f = Math.floor((b + 8) / 25);
+      const g = Math.floor((b - f + 1) / 3);
+      const h = (19 * a + b - d - g + 15) % 30;
+      const i = Math.floor(c / 4);
+      const k = c % 4;
+      const l = (32 + 2 * e + 2 * i - h - k) % 7;
+      const m = Math.floor((a + 11 * h + 22 * l) / 451);
+      const month = Math.floor((h + l - 7 * m + 114) / 31);
+      const day = ((h + l - 7 * m + 114) % 31) + 1;
+      return `${month}-${day}`;
+      }
+
+      function getBusUndBettag(year) {
+        const advent = '12-25-' + year;
+        const date = new Date(advent);
+        var weekday = date.getDay() === 0 ? 7 : date.getDay();
+        return getDateBeforeDays(date, weekday + 32);
+      }
+
+     function getDateBeforeDays(dateString, days) {
+      const date = new Date(dateString);
+      date.setDate(date.getDate() - days);
+      return `${date.getMonth()+1}-${date.getDate()}`;
+     }
+
+     function getDateAfterDays(dateString, days) {
+      const date = new Date(dateString);
+      date.setDate(date.getDate() + days);
+      return `${date.getMonth()+1}-${date.getDate()}`;
+     }
+
+	
+  </script>
+  </body>
+</html>
